@@ -15,8 +15,8 @@ void main() {
   late PostRepository repository;
 
   setUp(() {
-    dio = Dio();
-    dioAdapter = DioAdapter();
+    dio = Dio(); 
+    dioAdapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
     dio.httpClientAdapter = dioAdapter;
     repository = PostRepository(dio);
   });
@@ -25,7 +25,11 @@ void main() {
     final payload = fixture('post_items.json') as List<dynamic>;
     dioAdapter.onGet(
       '/posts',
+<<<<<<< HEAD
       (request) =>
+=======
+      (MockServer request) =>
+>>>>>>> 1ce9220 (updaate post repository test)
           request.reply(HttpStatus.ok, payload),
       queryParameters: <String, dynamic>{
         '_sort': 'id',
@@ -49,7 +53,11 @@ void main() {
     };
     dioAdapter.onPost(
       '/posts',
+<<<<<<< HEAD
       (request) => request.reply(HttpStatus.ok, data),
+=======
+      (MockServer request) => request.reply(HttpStatus.ok, data),
+>>>>>>> 1ce9220 (updaate post repository test)
       data: data,
     );
 
@@ -75,7 +83,11 @@ void main() {
 
     dioAdapter.onPut(
       '/posts/$id',
+<<<<<<< HEAD
       (request) =>
+=======
+      (MockServer request) =>
+>>>>>>> 1ce9220 (updaate post repository test)
           request.reply(HttpStatus.ok, post.toJson()),
       data: post.toJson(),
     );
@@ -91,7 +103,11 @@ void main() {
     const id = 1;
     dioAdapter.onDelete(
       '/posts/$id',
+<<<<<<< HEAD
       (request) =>
+=======
+      (MockServer request) =>
+>>>>>>> 1ce9220 (updaate post repository test)
           request.reply(HttpStatus.ok, <String, dynamic>{}),
     );
 
