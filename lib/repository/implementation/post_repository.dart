@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_mobx_template/models/post.dart';
-import 'package:flutter_mobx_template/repository/i_post_repository.dart';
+import '../../models/post.dart';
+import '../i_post_repository.dart';
 
 class PostRepository extends IPostRepository {
   PostRepository(this._dio);

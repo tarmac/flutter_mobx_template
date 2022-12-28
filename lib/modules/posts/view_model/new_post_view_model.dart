@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx_template/models/post.dart';
-import 'package:flutter_mobx_template/repository/i_post_repository.dart';
-import 'package:flutter_mobx_template/ui/functions/show_adaptive_dialog.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../models/post.dart';
+import '../../../repository/i_post_repository.dart';
+import '../../../ui/functions/show_adaptive_dialog.dart';
 
 part 'new_post_view_model.g.dart';
 
