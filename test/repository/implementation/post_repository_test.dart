@@ -26,10 +26,17 @@ void main() {
     dioAdapter.onGet(
       '/posts',
 <<<<<<< HEAD
+<<<<<<< HEAD
       (request) =>
 =======
       (MockServer request) =>
 >>>>>>> 1ce9220 (updaate post repository test)
+=======
+      (MockServer request) =>
+=======
+      (request) =>
+>>>>>>> 06d2306 (fix linter problems)
+>>>>>>> 9837eca (conflict solved)
           request.reply(HttpStatus.ok, payload),
       queryParameters: <String, dynamic>{
         '_sort': 'id',
@@ -54,10 +61,17 @@ void main() {
     dioAdapter.onPost(
       '/posts',
 <<<<<<< HEAD
+<<<<<<< HEAD
       (request) => request.reply(HttpStatus.ok, data),
 =======
       (MockServer request) => request.reply(HttpStatus.ok, data),
 >>>>>>> 1ce9220 (updaate post repository test)
+=======
+      (MockServer request) => request.reply(HttpStatus.ok, data),
+=======
+      (request) => request.reply(HttpStatus.ok, data),
+>>>>>>> 06d2306 (fix linter problems)
+>>>>>>> 9837eca (conflict solved)
       data: data,
     );
 
@@ -84,10 +98,17 @@ void main() {
     dioAdapter.onPut(
       '/posts/$id',
 <<<<<<< HEAD
+<<<<<<< HEAD
       (request) =>
 =======
       (MockServer request) =>
 >>>>>>> 1ce9220 (updaate post repository test)
+=======
+      (MockServer request) =>
+=======
+      (request) =>
+>>>>>>> 06d2306 (fix linter problems)
+>>>>>>> 9837eca (conflict solved)
           request.reply(HttpStatus.ok, post.toJson()),
       data: post.toJson(),
     );
@@ -104,10 +125,17 @@ void main() {
     dioAdapter.onDelete(
       '/posts/$id',
 <<<<<<< HEAD
+<<<<<<< HEAD
       (request) =>
 =======
       (MockServer request) =>
 >>>>>>> 1ce9220 (updaate post repository test)
+=======
+      (MockServer request) =>
+=======
+      (request) =>
+>>>>>>> 06d2306 (fix linter problems)
+>>>>>>> 9837eca (conflict solved)
           request.reply(HttpStatus.ok, <String, dynamic>{}),
     );
 
