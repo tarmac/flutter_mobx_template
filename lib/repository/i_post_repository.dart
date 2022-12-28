@@ -1,4 +1,4 @@
-import 'package:flutter_mobx_template/models/post.dart';
+import '../models/post.dart';
 
 abstract class IPostRepository {
   Future<List<Post>> getAll();

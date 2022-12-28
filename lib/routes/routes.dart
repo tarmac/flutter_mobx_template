@@ -7,7 +7,7 @@ import '../repository/implementation/post_repository.dart';
 import 'route_names.dart';
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
-  RouteNames.posts: (BuildContext context) => PostView(
+  RouteNames.posts: (context) => PostView(
         postViewModel: PostViewModel(
           Provider.of<PostRepository>(context, listen: false),
         ),

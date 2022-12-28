@@ -12,35 +12,35 @@ import './new_post_view_model_test.mocks.dart';
 
 @GenerateMocks(<Type>[PostRepository])
 void main() {
-  late NewPostViewModel _newPostViewModel;
-  late MockPostRepository _repository;
+  late NewPostViewModel newPostViewModel;
+  late MockPostRepository repository;
 
   setUp(() {
-    _repository = MockPostRepository();
-    _newPostViewModel = NewPostViewModel(_repository);
+    repository = MockPostRepository();
+    newPostViewModel = NewPostViewModel(repository);
   });
 
   group('Validation Text Post', () {
     test('should return String when post text is invalid', () async {
       const String? text = null;
-      final String? result = _newPostViewModel.validateTextPost(text);
+      final result = newPostViewModel.validateTextPost(text);
       expect(result?.isNotEmpty, true);
     });
 
     test('should return null when post text is valid', () async {
-      final String text = Faker().randomGenerator.string(30, min: 10);
-      final String? result = _newPostViewModel.validateTextPost(text);
+      final text = Faker().randomGenerator.string(30, min: 10);
+      final result = newPostViewModel.validateTextPost(text);
       expect(result, null);
     });
   });
 
   group('Save new post', () {
     testWidgets('should return success new add new post',
-        (WidgetTester tester) async {
-      const int id = 1;
-      final String text = Faker().randomGenerator.string(20, min: 10);
-      final String creationDate = Faker().date.dateTime().toString();
-      when(_repository.add(
+        (tester) async {
+      const id = 1;
+      final text = Faker().randomGenerator.string(20, min: 10);
+      final creationDate = Faker().date.dateTime().toString();
+      when(repository.add(
         text: anyNamed('text'),
         creationDate: anyNamed('creationDate'),
       )).thenAnswer(
@@ -49,22 +49,22 @@ void main() {
       // Get one valid context
       await tester.pumpWidget(MaterialApp(
           home: Material(
-              child: NewPostPage(newPostViewModel: _newPostViewModel))));
+              child: NewPostPage(newPostViewModel: newPostViewModel))));
       final BuildContext context = tester.element(find.byType(NewPostPage));
 
-      _newPostViewModel.textController.text = text;
-      final Post post = await _newPostViewModel.addNewPost(context);
+      newPostViewModel.textController.text = text;
+      final post = await newPostViewModel.addNewPost(context);
       expect(post.id, id);
       expect(post.text, text);
       expect(post.creationDate, creationDate);
     });
 
     testWidgets('should return exception when the form is invalid',
-        (WidgetTester tester) async {
-      const int id = 1;
-      final String text = Faker().randomGenerator.string(20, min: 10);
-      final String creationDate = Faker().date.dateTime().toString();
-      when(_repository.add(
+        (tester) async {
+      const id = 1;
+      final text = Faker().randomGenerator.string(20, min: 10);
+      final creationDate = Faker().date.dateTime().toString();
+      when(repository.add(
         text: anyNamed('text'),
         creationDate: anyNamed('creationDate'),
       )).thenAnswer(
@@ -73,10 +73,10 @@ void main() {
       // Get one valid context
       await tester.pumpWidget(MaterialApp(
           home: Material(
-              child: NewPostPage(newPostViewModel: _newPostViewModel))));
+              child: NewPostPage(newPostViewModel: newPostViewModel))));
       final BuildContext context = tester.element(find.byType(NewPostPage));
       try {
-        await _newPostViewModel.addNewPost(context);
+        await newPostViewModel.addNewPost(context);
         fail('Failed test');
       } catch (e) {
         expect(e, isInstanceOf<FormatException>());

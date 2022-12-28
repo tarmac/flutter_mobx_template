@@ -13,7 +13,7 @@ class PostRepository extends IPostRepository {
     required String creationDate,
   }) async {
     try {
-      final Response<Map<String, dynamic>> result = await _dio.post(
+      final result = await _dio.post(
         '/posts',
         data: <String, dynamic>{
           'text': text,
@@ -39,7 +39,7 @@ class PostRepository extends IPostRepository {
   @override
   Future<Post> edit(Post post) async {
     try {
-      final Response<Map<String, dynamic>> result =
+      final result =
           await _dio.put('/posts/${post.id}', data: post.toJson());
       return Post.fromJson(result.data ?? <String, dynamic>{});
     } catch (e, stackTrace) {
@@ -50,7 +50,7 @@ class PostRepository extends IPostRepository {
   @override
   Future<List<Post>> getAll() async {
     try {
-      final Response<List<dynamic>> result = await _dio.get(
+      final result = await _dio.get(
         '/posts',
         queryParameters: <String, dynamic>{
           '_sort': 'id',
@@ -58,7 +58,7 @@ class PostRepository extends IPostRepository {
         },
       );
       return List<Map<String, dynamic>>.from(result.data ?? <dynamic>[])
-          .map((Map<String, dynamic> e) => Post.fromJson(e))
+          .map((e) => Post.fromJson(e))
           .toList();
     } catch (e, stackTrace) {
       return Future<List<Post>>.error(e, stackTrace);

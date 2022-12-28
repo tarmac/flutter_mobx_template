@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'env/env.dart';
 import 'env/env_dev.dart';
 import 'env/env_prod.dart';

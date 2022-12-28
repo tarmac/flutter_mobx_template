@@ -39,16 +39,18 @@ abstract class NewPostViewModelBase with Store {
       if (!formKey.currentState!.validate()) {
         throw const FormatException('The Form is invalid');
       }
-      final Post post = await _repository.add(
+      final post = await _repository.add(
         text: textController.text,
         creationDate: DateTime.now().toString(),
       );
       textController.clear(); // empty TextEditingController
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pop(post); // close BottomSheet
       _isSaving = false;
       return post;
     } on FormatException catch (e, stackTrace) {
       _isSaving = false;
+      // ignore: unawaited_futures
       showAdaptiveDialog(
         context: context,
         title: 'Error',

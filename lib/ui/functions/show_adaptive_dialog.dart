@@ -15,8 +15,8 @@ Future<dynamic> showAdaptiveDialog({
     content: Text(content),
     actions: <Widget>[
       TextButton(
-        child: const Text('ok'),
         onPressed: Navigator.of(context).pop,
+        child: const Text('ok'),
       )
     ],
   );
@@ -27,8 +27,8 @@ Future<dynamic> showAdaptiveDialog({
         content: Text(content),
         actions: <Widget>[
           CupertinoDialogAction(
-            child: const Text('ok'),
             onPressed: Navigator.of(context).pop,
+            child: const Text('ok'),
           )
         ],
       );
@@ -43,6 +43,6 @@ Future<dynamic> showAdaptiveDialog({
 
   return showDialog<dynamic>(
     context: context,
-    builder: (BuildContext context) => dialog,
+    builder: (context) => dialog,
   );
 }

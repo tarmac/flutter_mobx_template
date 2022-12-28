@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../flavors.dart';
-import '../../../models/post.dart';
 import '../../../ui/refresh_list_adaptive.dart';
 import '../view_model/post_view_model.dart';
 import '../widgets/post_card_item.dart';
@@ -33,8 +32,8 @@ class PostView extends StatelessWidget {
         builder: (_) {
           return RefreshListAdaptive(
             onRefresh: () => postViewModel.loadPosts(context: context),
-            itemBuilder: (BuildContext context, int i) {
-              final Post post = postViewModel.posts[i];
+            itemBuilder: (context, i) {
+              final post = postViewModel.posts[i];
               return PostCardItem(
                 key: Key(post.id.toString()),
                 id: post.id.toString(),

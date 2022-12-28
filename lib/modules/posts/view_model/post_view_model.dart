@@ -41,9 +41,9 @@ abstract class PostViewModelBase with Store {
     PostViewModel postViewModel,
   ) async {
     try {
-      final Post? post = await showModalBottomSheet<Post>(
+      final post = await showModalBottomSheet<Post>(
         context: context,
-        builder: (BuildContext context) {
+        builder: (context) {
           return NewPostPage(newPostViewModel: NewPostViewModel(_repository));
         },
         backgroundColor: Colors.black54,
@@ -55,7 +55,7 @@ abstract class PostViewModelBase with Store {
         ),
       );
       if (post != null) {
-        loadPosts();
+        await loadPosts();
       }
     } catch (e, stackTrace) {
       log(e.toString(), name: 'openNewPostBottomSheet', stackTrace: stackTrace);
