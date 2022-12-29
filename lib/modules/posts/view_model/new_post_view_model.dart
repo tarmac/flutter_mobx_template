@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -39,23 +41,22 @@ abstract class NewPostViewModelBase with Store {
       if (!formKey.currentState!.validate()) {
         throw const FormatException('The Form is invalid');
       }
+      final navigator = Navigator.of(context); 
       final post = await _repository.add(
         text: textController.text,
         creationDate: DateTime.now().toString(),
       );
       textController.clear(); // empty TextEditingController
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pop(post); // close BottomSheet
+      navigator.pop(post);
       _isSaving = false;
       return post;
     } on FormatException catch (e, stackTrace) {
       _isSaving = false;
-      // ignore: unawaited_futures
-      showAdaptiveDialog(
+      unawaited(showAdaptiveDialog(
         context: context,
         title: 'Error',
         content: e.message,
-      );
+      ));
       return Future<Post>.error(e, stackTrace);
     } catch (e, stackTrace) {
       _isSaving = false;
