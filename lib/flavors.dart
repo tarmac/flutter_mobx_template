@@ -1,7 +1,9 @@
-import 'package:flutter_mobx_template/env/env.dart';
-import 'package:flutter_mobx_template/env/env_dev.dart';
-import 'package:flutter_mobx_template/env/env_prod.dart';
-import 'package:flutter_mobx_template/env/env_qa.dart';
+// ignore_for_file: constant_identifier_names
+
+import 'env/env.dart';
+import 'env/env_dev.dart';
+import 'env/env_prod.dart';
+import 'env/env_qa.dart';
 
 enum Flavor {
   DEV,

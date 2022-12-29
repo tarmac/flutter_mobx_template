@@ -6,7 +6,6 @@ import 'package:flutter_mobx_template/models/post.dart';
 import 'package:flutter_mobx_template/repository/implementation/post_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
-import 'package:http_mock_adapter/src/handlers/request_handler.dart';
 
 import '../../fixtures/fixture.dart';
 
@@ -23,10 +22,10 @@ void main() {
   });
 
   test('shold return a list of posts', () async {
-    final List<dynamic> payload = fixture('post_items.json') as List<dynamic>;
+    final payload = fixture('post_items.json') as List<dynamic>;
     dioAdapter.onGet(
       '/posts',
-      (MockServer request) =>
+      (request) =>
           request.reply(HttpStatus.ok, payload),
       queryParameters: <String, dynamic>{
         '_sort': 'id',
@@ -34,27 +33,27 @@ void main() {
       },
     );
 
-    final List<Post> result = await repository.getAll();
+    final result = await repository.getAll();
     expect(result, isA<List<Post>>());
     expect(result.length, payload.length);
   });
 
   test('should return add new post and return post with id', () async {
-    const int id = 1;
-    final String text = Faker().randomGenerator.string(50, min: 10);
-    final String creationDate = Faker().date.dateTime().toString();
-    final Map<String, dynamic> data = <String, dynamic>{
+    const id = 1;
+    final text = Faker().randomGenerator.string(50, min: 10);
+    final creationDate = Faker().date.dateTime().toString();
+    final data = <String, dynamic>{
       'id': id,
       'text': text,
       'creation-date': creationDate,
     };
     dioAdapter.onPost(
       '/posts',
-      (MockServer request) => request.reply(HttpStatus.ok, data),
+      (request) => request.reply(HttpStatus.ok, data),
       data: data,
     );
 
-    final Post result =
+    final result =
         await repository.add(text: text, creationDate: creationDate);
     expect(result, isA<Post>());
     expect(result.text, text);
@@ -63,25 +62,25 @@ void main() {
   });
 
   test('should return updated post content', () async {
-    const int id = 1;
-    final String text = Faker().randomGenerator.string(50, min: 10);
-    final String creationDate = Faker().date.dateTime().toString();
-    final Map<String, dynamic> data = <String, dynamic>{
+    const id = 1;
+    final text = Faker().randomGenerator.string(50, min: 10);
+    final creationDate = Faker().date.dateTime().toString();
+    final data = <String, dynamic>{
       'id': id,
       'text': text,
       'creation-date': creationDate,
     };
-    final Post post = Post.fromJson(data);
+    final post = Post.fromJson(data);
     post.text = Faker().randomGenerator.string(100, min: 51);
 
     dioAdapter.onPut(
       '/posts/$id',
-      (MockServer request) =>
+      (request) =>
           request.reply(HttpStatus.ok, post.toJson()),
       data: post.toJson(),
     );
 
-    final Post result = await repository.edit(post);
+    final result = await repository.edit(post);
     expect(result, isA<Post>());
     expect(result.text, post.text);
     expect(result.creationDate, post.creationDate);
@@ -89,14 +88,14 @@ void main() {
   });
 
   test('shouldn return true when delete one post', () async {
-    const int id = 1;
+    const id = 1;
     dioAdapter.onDelete(
       '/posts/$id',
-      (MockServer request) =>
+      (request) =>
           request.reply(HttpStatus.ok, <String, dynamic>{}),
     );
 
-    final bool result = await repository.delete(1);
+    final result = await repository.delete(1);
     expect(result, true);
   });
 }

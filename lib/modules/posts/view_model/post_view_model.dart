@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx_template/models/post.dart';
-import 'package:flutter_mobx_template/modules/posts/view_model/new_post_view_model.dart';
-import 'package:flutter_mobx_template/modules/posts/views/new_post_view.dart';
-import 'package:flutter_mobx_template/repository/i_post_repository.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../../models/post.dart';
+import '../../../repository/i_post_repository.dart';
+import '../views/new_post_view.dart';
+import 'new_post_view_model.dart';
 
 part 'post_view_model.g.dart';
 
@@ -40,9 +41,9 @@ abstract class PostViewModelBase with Store {
     PostViewModel postViewModel,
   ) async {
     try {
-      final Post? post = await showModalBottomSheet<Post>(
+      final post = await showModalBottomSheet<Post>(
         context: context,
-        builder: (BuildContext context) {
+        builder: (context) {
           return NewPostPage(newPostViewModel: NewPostViewModel(_repository));
         },
         backgroundColor: Colors.black54,
@@ -54,7 +55,7 @@ abstract class PostViewModelBase with Store {
         ),
       );
       if (post != null) {
-        loadPosts();
+        await loadPosts();
       }
     } catch (e, stackTrace) {
       log(e.toString(), name: 'openNewPostBottomSheet', stackTrace: stackTrace);
