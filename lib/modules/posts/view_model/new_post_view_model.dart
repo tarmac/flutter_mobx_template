@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../models/post.dart';
-import '../../../repository/i_post_repository.dart';
+import '../../../repository/post_repository.dart';
 import '../../../ui/functions/show_adaptive_dialog.dart';
 
 part 'new_post_view_model.g.dart';
@@ -14,7 +14,7 @@ class NewPostViewModel = NewPostViewModelBase with _$NewPostViewModel;
 abstract class NewPostViewModelBase with Store {
   NewPostViewModelBase(this._repository);
 
-  final IPostRepository _repository;
+  final PostRepository _repository;
 
   @observable
   bool _isSaving = false;

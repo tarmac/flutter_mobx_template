@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx_template/models/post.dart';
 import 'package:flutter_mobx_template/modules/posts/view_model/new_post_view_model.dart';
 import 'package:flutter_mobx_template/modules/posts/views/new_post_view.dart';
-import 'package:flutter_mobx_template/repository/implementation/post_repository.dart';
+import 'package:flutter_mobx_template/repository/post_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -17,7 +17,7 @@ void main() {
 
   setUp(() {
     repository = MockPostRepository();
-    newPostViewModel = NewPostViewModel(repository);
+    newPostViewModel = NewPostViewModel(repository as PostRepository);
   });
 
   group('Validation Text Post', () {
