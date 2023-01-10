@@ -1,13 +1,11 @@
 import 'package:dio/dio.dart';
-import '../../models/post.dart';
-import '../i_post_repository.dart';
+import '../models/post.dart';
 
-class PostRepository extends IPostRepository {
+class PostRepository {
   PostRepository(this._dio);
 
   final Dio _dio;
 
-  @override
   Future<Post> add({
     required String text,
     required String creationDate,
@@ -26,7 +24,6 @@ class PostRepository extends IPostRepository {
     }
   }
 
-  @override
   Future<bool> delete(int id) async {
     try {
       await _dio.delete<dynamic>('/posts/$id');
@@ -36,7 +33,6 @@ class PostRepository extends IPostRepository {
     }
   }
 
-  @override
   Future<Post> edit(Post post) async {
     try {
       final result =
@@ -47,7 +43,6 @@ class PostRepository extends IPostRepository {
     }
   }
 
-  @override
   Future<List<Post>> getAll() async {
     try {
       final result = await _dio.get(

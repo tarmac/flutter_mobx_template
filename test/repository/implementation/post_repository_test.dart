@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_mobx_template/models/post.dart';
-import 'package:flutter_mobx_template/repository/implementation/post_repository.dart';
+import 'package:flutter_mobx_template/repository/post_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 

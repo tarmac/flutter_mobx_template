@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import '../flavors.dart';
-import '../repository/implementation/post_repository.dart';
+import '../repository/post_repository.dart';
 import 'api.dart';
 
 final List<SingleChildWidget> providers = <Provider<dynamic>>[
