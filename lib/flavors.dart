@@ -22,7 +22,7 @@ extension FlavorExtension on Flavor {
     }
   }
 
-    String get title {
+    String get appTitle {
         switch (this) {
       case Flavor.QA:
         return 'SecretWall QA';

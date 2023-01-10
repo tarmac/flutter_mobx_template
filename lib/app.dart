@@ -16,7 +16,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: providers,
       child: MaterialApp(
-        title: appFlavor!.title,
+        title: appFlavor!.appTitle,
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         darkTheme: darkTheme,
