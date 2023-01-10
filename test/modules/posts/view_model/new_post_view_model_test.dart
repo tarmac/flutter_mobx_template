@@ -17,7 +17,7 @@ void main() {
 
   setUp(() {
     repository = MockPostRepository();
-    newPostViewModel = NewPostViewModel(repository as PostRepository);
+    newPostViewModel = NewPostViewModel(repository);
   });
 
   group('Validation Text Post', () {

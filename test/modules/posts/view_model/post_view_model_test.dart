@@ -14,7 +14,7 @@ void main() {
 
   setUp(() {
     repository = MockPostRepository();
-    postViewModel = PostViewModel(repository as PostRepository);
+    postViewModel = PostViewModel(repository);
   });
 
   group('Load posts', () {
