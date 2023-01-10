@@ -9,7 +9,7 @@ import 'api.dart';
 final List<SingleChildWidget> providers = <Provider<dynamic>>[
   Provider<Dio>(
     lazy: false,
-    create: (ctx) => SecretWallApi(F.env.baseUrl).init(),
+    create: (ctx) => SecretWallApi(appFlavor!.baseUrl).init(),
   ),
   Provider<PostRepository>(
     create: (ctx) => PostRepository(ctx.read<Dio>()),

@@ -1,30 +1,37 @@
 // ignore_for_file: constant_identifier_names
 
-import 'env/env.dart';
-import 'env/env_dev.dart';
-import 'env/env_prod.dart';
-import 'env/env_qa.dart';
-
 enum Flavor {
   DEV,
   QA,
   PROD,
 }
 
-// ignore: avoid_classes_with_only_static_members
-class F {
-  static Flavor? appFlavor;
+Flavor? appFlavor;
 
-  static Env get env {
-    switch (appFlavor) {
-      case Flavor.DEV:
-        return Env.fromJson(envDev);
+extension FlavorExtension on Flavor {
+  String get baseUrl {
+    switch (this) {
       case Flavor.QA:
-        return Env.fromJson(envQa);
+        return 'http://192.168.2.110:3000';
       case Flavor.PROD:
-        return Env.fromJson(envProd);
+        return 'http://192.168.2.110:3000';
+      case Flavor.DEV:
+        return 'http://192.168.2.110:3000';
       default:
-        return Env.fromJson(envProd);
+        return 'http://192.168.2.110:3000';
+    }
+  }
+
+    String get appTitle {
+        switch (this) {
+      case Flavor.QA:
+        return 'SecretWall QA';
+      case Flavor.PROD:
+        return 'SecretWall';
+      case Flavor.DEV:
+        return 'SecretWall DEV';
+      default:
+        return 'SecretWall';
     }
   }
 }
