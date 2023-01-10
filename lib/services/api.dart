@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
-class Api {
-  Api(String baseUrl) {
+class SecretWallApi {
+  SecretWallApi(String baseUrl) {
     _dio = Dio(BaseOptions(baseUrl: baseUrl));
     _interceptors();
   }
