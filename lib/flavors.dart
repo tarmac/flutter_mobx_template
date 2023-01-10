@@ -6,12 +6,11 @@ enum Flavor {
   PROD,
 }
 
-// ignore: avoid_classes_with_only_static_members
-class F {
-  static Flavor? appFlavor;
+Flavor? appFlavor;
 
-  static String get baseUrl {
-    switch (appFlavor) {
+extension FlavorExtension on Flavor {
+  String get baseUrl {
+    switch (this) {
       case Flavor.QA:
         return 'http://192.168.2.110:3000';
       case Flavor.PROD:
@@ -23,8 +22,8 @@ class F {
     }
   }
 
-  static String get title {
-        switch (appFlavor) {
+    String get title {
+        switch (this) {
       case Flavor.QA:
         return 'SecretWall QA';
       case Flavor.PROD:
