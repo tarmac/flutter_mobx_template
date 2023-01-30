@@ -11,19 +11,10 @@ gen-flavors:
 # Generate code
 gen-code:
 	flutter pub run build_runner build --delete-conflicting-outputs
-	flutter format . -l 120
+	dart format . -l 120
 
 # CI Tests
 ci-tests:
-	flutter format --set-exit-if-changed -n . -l 120
+	dart format . -l 120 --set-exit-if-changed
 	flutter analyze
 	flutter test -r expanded
-
-apply-lint:
-	dart fix --dry-run
-	dart fix --apply
-
-# Format code:
-format-code:
-	flutter format . -l 150
-	flutter pub run import_path_converter:main
