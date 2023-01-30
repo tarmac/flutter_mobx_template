@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../models/post.dart';
-import '../../../repository/post_repository.dart';
-import '../../../ui/functions/show_adaptive_dialog.dart';
+import '../../helpers/show_adaptive_dialog.dart';
+import '../../models/post.dart';
+import '../../repository/post_repository.dart';
 
 part 'new_post_view_model.g.dart';
 
@@ -41,7 +41,7 @@ abstract class NewPostViewModelBase with Store {
       if (!formKey.currentState!.validate()) {
         throw const FormatException('The Form is invalid');
       }
-      final navigator = Navigator.of(context); 
+      final navigator = Navigator.of(context);
       final post = await _repository.add(
         text: textController.text,
         creationDate: DateTime.now().toString(),

@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../models/post.dart';
-import '../../../repository/post_repository.dart';
-import '../views/new_post_view.dart';
-import 'new_post_view_model.dart';
+import '../../models/post.dart';
+import '../../repository/post_repository.dart';
+import '../new_posts/new_post_view.dart';
+import '../new_posts/new_post_view_model.dart';
 
 part 'post_view_model.g.dart';
 
@@ -27,15 +27,14 @@ abstract class PostViewModelBase with Store {
     try {
       posts = (await _repository.getAll()).asObservable();
     } catch (e, stackTrace) {
-      log(e.toString(),
-          name: 'PostViewModel.loadPosts', stackTrace: stackTrace);
+      log(e.toString(), name: 'PostViewModel.loadPosts', stackTrace: stackTrace);
       if (context != null) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
       }
     }
   }
 
+  // TODO(DavidGrunheidt): Remove this from viewModel. Explicitly mentioning UI
   Future<void> openNewPostBottomSheet(
     BuildContext context,
     PostViewModel postViewModel,

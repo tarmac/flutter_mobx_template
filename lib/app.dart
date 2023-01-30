@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'design_system/themes/dark_theme.dart';
+import 'design_system/themes/light_theme.dart';
 import 'flavors.dart';
 import 'routes/route_names.dart';
 import 'routes/routes.dart';
 import 'services/providers.dart';
-import 'themes/dark_theme.dart';
-import 'themes/light_theme.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
