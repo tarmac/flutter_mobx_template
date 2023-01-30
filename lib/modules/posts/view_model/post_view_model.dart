@@ -27,11 +27,9 @@ abstract class PostViewModelBase with Store {
     try {
       posts = (await _repository.getAll()).asObservable();
     } catch (e, stackTrace) {
-      log(e.toString(),
-          name: 'PostViewModel.loadPosts', stackTrace: stackTrace);
+      log(e.toString(), name: 'PostViewModel.loadPosts', stackTrace: stackTrace);
       if (context != null) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
       }
     }
   }

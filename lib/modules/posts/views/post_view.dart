@@ -23,8 +23,7 @@ class PostView extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () =>
-                postViewModel.openNewPostBottomSheet(context, postViewModel),
+            onPressed: () => postViewModel.openNewPostBottomSheet(context, postViewModel),
           )
         ],
       ),
@@ -38,8 +37,7 @@ class PostView extends StatelessWidget {
                 key: Key(post.id.toString()),
                 id: post.id.toString(),
                 text: post.text,
-                createdAt:
-                    DateFormat.yMd().add_Hms().format(post.createdAtDatetime),
+                createdAt: DateFormat.yMd().add_Hms().format(post.createdAtDatetime),
               );
             },
             itemCount: postViewModel.posts.length,

@@ -41,7 +41,7 @@ abstract class NewPostViewModelBase with Store {
       if (!formKey.currentState!.validate()) {
         throw const FormatException('The Form is invalid');
       }
-      final navigator = Navigator.of(context); 
+      final navigator = Navigator.of(context);
       final post = await _repository.add(
         text: textController.text,
         creationDate: DateTime.now().toString(),

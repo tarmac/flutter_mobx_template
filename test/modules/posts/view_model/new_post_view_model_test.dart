@@ -35,21 +35,17 @@ void main() {
   });
 
   group('Save new post', () {
-    testWidgets('should return success new add new post',
-        (tester) async {
+    testWidgets('should return success new add new post', (tester) async {
       const id = 1;
       final text = Faker().randomGenerator.string(20, min: 10);
       final creationDate = Faker().date.dateTime().toString();
       when(repository.add(
         text: anyNamed('text'),
         creationDate: anyNamed('creationDate'),
-      )).thenAnswer(
-          (_) async => Post(id: id, text: text, creationDate: creationDate));
+      )).thenAnswer((_) async => Post(id: id, text: text, creationDate: creationDate));
 
       // Get one valid context
-      await tester.pumpWidget(MaterialApp(
-          home: Material(
-              child: NewPostPage(newPostViewModel: newPostViewModel))));
+      await tester.pumpWidget(MaterialApp(home: Material(child: NewPostPage(newPostViewModel: newPostViewModel))));
       final BuildContext context = tester.element(find.byType(NewPostPage));
 
       newPostViewModel.textController.text = text;
@@ -59,21 +55,17 @@ void main() {
       expect(post.creationDate, creationDate);
     });
 
-    testWidgets('should return exception when the form is invalid',
-        (tester) async {
+    testWidgets('should return exception when the form is invalid', (tester) async {
       const id = 1;
       final text = Faker().randomGenerator.string(20, min: 10);
       final creationDate = Faker().date.dateTime().toString();
       when(repository.add(
         text: anyNamed('text'),
         creationDate: anyNamed('creationDate'),
-      )).thenAnswer(
-          (_) async => Post(id: id, text: text, creationDate: creationDate));
+      )).thenAnswer((_) async => Post(id: id, text: text, creationDate: creationDate));
 
       // Get one valid context
-      await tester.pumpWidget(MaterialApp(
-          home: Material(
-              child: NewPostPage(newPostViewModel: newPostViewModel))));
+      await tester.pumpWidget(MaterialApp(home: Material(child: NewPostPage(newPostViewModel: newPostViewModel))));
       final BuildContext context = tester.element(find.byType(NewPostPage));
       try {
         await newPostViewModel.addNewPost(context);
