@@ -1,20 +1,12 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
-  plugins:
-    - dart_code_metrics
   exclude:
     - "bin/cache/**"
     - "lib/**/*.g.dart"
     - "test/**/*.mocks.dart"
 
 linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at
-  # https://dart-lang.github.io/linter/lints/index.html.
-  #
   # Instead of disabling a lint rule for the entire project in the
   # section below, it can also be suppressed for a single line of code
   # or a specific dart file by using the `// ignore: name_of_lint` and
@@ -35,15 +27,13 @@ linter:
     empty_catches: true
     file_names: true
     hash_and_equals: true
-    invalid_override_of_non_virtual_member: true
-    invalid_use_of_protected_member: true
     no_duplicate_case_values: true
     non_constant_identifier_names: true
     omit_local_variable_types: true
     one_member_abstracts: true
     prefer_final_fields: true
     prefer_final_locals: true
-    prefer_if_null_operator: true
+    prefer_if_null_operators: true
     prefer_interpolation_to_compose_strings: true
     prefer_mixin: true
     prefer_relative_imports: true
@@ -58,15 +48,9 @@ linter:
     use_to_and_as_if_applicable: true
     valid_regexps: true
     avoid_void_async: true
-    library_private_types_in_public_api: true
-    use_build_context_synchronously: true
+    use_super_parameters: true
+    library_private_types_in_public_api: false
+    avoid_function_literals_in_foreach_calls: false
+
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
-
-dart_code_metrics:
-  metrics-exclude:
-    - "bin/cache/**"
-    - "lib/**/*.g.dart"
-    - "test/**/*.mocks.dart"
-  rules:
-    - avoid-returning-widgets

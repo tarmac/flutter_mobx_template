@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class HeaderInputText extends StatelessWidget {
   const HeaderInputText({
-    Key? key,
+    super.key,
     required this.text,
-  }) : super(key: key);
+  });
 
   final String text;
 

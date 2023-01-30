@@ -9,9 +9,9 @@ import '../widgets/post_card_item.dart';
 
 class PostView extends StatelessWidget {
   const PostView({
-    Key? key,
+    super.key,
     required this.postViewModel,
-  }) : super(key: key);
+  });
 
   final PostViewModel postViewModel;
 

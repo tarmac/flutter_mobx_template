@@ -9,9 +9,9 @@ import '../widgets/input_text.dart';
 
 class NewPostPage extends StatelessWidget {
   const NewPostPage({
-    Key? key,
+    super.key,
     required this.newPostViewModel,
-  }) : super(key: key);
+  });
 
   final NewPostViewModel newPostViewModel;
 

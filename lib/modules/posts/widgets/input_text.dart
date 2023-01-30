@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class InputText extends StatelessWidget {
   const InputText({
-    Key? key,
+    super.key,
     required this.textEditingController,
     required this.validator,
-  }) : super(key: key);
+  });
 
   final TextEditingController textEditingController;
   final String? Function(String?)? validator;

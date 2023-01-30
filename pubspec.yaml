@@ -5,8 +5,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  flutter: ">=3.3.10 <4.0.0"
-  sdk: ">=2.18.6 <3.0.0"
+  flutter: ">=3.7.0 <4.0.0"
+  sdk: ">=2.19.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -49,9 +49,6 @@ dev_dependencies:
   faker: ^2.1.0
   http_mock_adapter: ^0.3.3
 
-dependency_overrides:
-  collection: ^1.17.0
-
 flutter:
   uses-material-design: true
 
@@ -67,6 +64,22 @@ flavorizr:
     android:
       flavorDimensions: "flavor-type"
     ios:
+  ide: idea
+  instructions:
+    - assets:download
+    - assets:extract
+    - android:androidManifest
+    - android:buildGradle
+    - flutter:flavors
+    - flutter:app
+    - flutter:targets
+    - ios:xcconfig
+    - ios:buildTargets
+    - ios:schema
+    - ios:plist
+    - assets:clean
+    - ide:config
+
   flavors:
     dev:
       app:
