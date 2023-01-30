@@ -53,7 +53,7 @@ class PostRepository {
         },
       );
       return List<Map<String, dynamic>>.from(result.data ?? <dynamic>[])
-          .map((e) => Post.fromJson(e))
+          .map(Post.fromJson)
           .toList();
     } catch (e, stackTrace) {
       return Future<List<Post>>.error(e, stackTrace);
