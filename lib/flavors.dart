@@ -1,22 +1,14 @@
 // ignore_for_file: constant_identifier_names
+enum Flavor { DEV, QA, PROD }
 
-enum Flavor {
-  DEV,
-  QA,
-  PROD,
-}
-
-Flavor? appFlavor;
+late final Flavor appFlavor;
 
 extension FlavorExtension on Flavor {
   String get baseUrl {
     switch (this) {
       case Flavor.QA:
-        return 'http://192.168.2.110:3000';
       case Flavor.PROD:
-        return 'http://192.168.2.110:3000';
       case Flavor.DEV:
-        return 'http://192.168.2.110:3000';
       default:
         return 'http://192.168.2.110:3000';
     }
@@ -26,12 +18,20 @@ extension FlavorExtension on Flavor {
     switch (this) {
       case Flavor.QA:
         return 'SecretWall QA';
-      case Flavor.PROD:
-        return 'SecretWall';
       case Flavor.DEV:
         return 'SecretWall DEV';
+      case Flavor.PROD:
       default:
         return 'SecretWall';
+    }
+  }
+
+  int get connectTimeout {
+    switch (appFlavor) {
+      case Flavor.DEV:
+        return 20000;
+      default:
+        return 5000;
     }
   }
 }

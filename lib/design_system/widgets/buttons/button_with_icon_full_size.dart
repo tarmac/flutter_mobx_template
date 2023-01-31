@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class ButtonWithIconFullSize extends StatelessWidget {
   const ButtonWithIconFullSize({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.text,
     required this.icon,
-  }) : super(key: key);
+  });
 
   final void Function() onPressed;
   final String text;

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class PostCardItem extends StatelessWidget {
   const PostCardItem({
-    Key? key,
+    super.key,
     required this.id,
     required this.text,
     required this.createdAt,
-  }) : super(key: key);
+  });
 
   final String id;
   final String text;

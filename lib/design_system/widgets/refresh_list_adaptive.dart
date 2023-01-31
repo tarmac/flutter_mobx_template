@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 
 class RefreshListAdaptive extends StatelessWidget {
   const RefreshListAdaptive({
-    Key? key,
+    super.key,
     required this.onRefresh,
     required this.itemBuilder,
     required this.itemCount,
-  }) : super(key: key);
+  });
 
   final Future<void> Function() onRefresh;
   final Widget Function(BuildContext, int) itemBuilder;

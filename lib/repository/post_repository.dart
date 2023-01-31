@@ -1,59 +1,42 @@
-import 'package:dio/dio.dart';
+import 'package:mobx/mobx.dart';
+
+import '../helpers/dependencies/service_locator.dart';
 import '../models/post.dart';
+import '../services/post_service.dart';
 
-class PostRepository {
-  PostRepository(this._dio);
+part 'post_repository.g.dart';
 
-  final Dio _dio;
+class PostRepository = _PostRepository with _$PostRepository;
 
-  Future<Post> add({
-    required String text,
-    required String creationDate,
-  }) async {
-    try {
-      final result = await _dio.post(
-        '/posts',
-        data: <String, dynamic>{
-          'text': text,
-          'creation-date': creationDate,
-        },
-      );
-      return Post.fromJson(result.data ?? <String, dynamic>{});
-    } catch (e, stackTrace) {
-      return Future<Post>.error(e, stackTrace);
-    }
+abstract class _PostRepository with Store {
+  final _postService = serviceLocator<PostService>();
+
+  final postsList = <Post>[].asObservable();
+
+  @action
+  Future<Post> add({required String text, required String creationDate}) async {
+    final newPost = await _postService.add(text: text, creationDate: creationDate);
+    postsList.add(newPost);
+    return newPost;
   }
 
-  Future<bool> delete(int id) async {
-    try {
-      await _dio.delete<dynamic>('/posts/$id');
-      return true;
-    } catch (e, stackTrace) {
-      return Future<bool>.error(e, stackTrace);
-    }
+  @action
+  Future<void> delete(int id) async {
+    await _postService.delete(id);
+    postsList.removeWhere((el) => el.id == id);
   }
 
-  Future<Post> edit(Post post) async {
-    try {
-      final result = await _dio.put('/posts/${post.id}', data: post.toJson());
-      return Post.fromJson(result.data ?? <String, dynamic>{});
-    } catch (e, stackTrace) {
-      return Future<Post>.error(e, stackTrace);
-    }
+  @action
+  Future<void> edit(Post post) async {
+    final updatedPost = await _postService.edit(post);
+    final postIndex = postsList.indexWhere((el) => el.id == updatedPost.id);
+    postsList[postIndex] = updatedPost;
   }
 
-  Future<List<Post>> getAll() async {
-    try {
-      final result = await _dio.get(
-        '/posts',
-        queryParameters: <String, dynamic>{
-          '_sort': 'id',
-          '_order': 'desc',
-        },
-      );
-      return List<Map<String, dynamic>>.from(result.data ?? <dynamic>[]).map(Post.fromJson).toList();
-    } catch (e, stackTrace) {
-      return Future<List<Post>>.error(e, stackTrace);
-    }
+  @action
+  Future<void> loadAll() async {
+    final posts = await _postService.getAll();
+    postsList.clear();
+    postsList.addAll(posts);
   }
 }
