@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../ui/widgets/buttons/button_with_icon_full_size.dart';
-import '../../../ui/widgets/center_loading.dart';
-import '../view_model/new_post_view_model.dart';
-import '../widgets/header_input_text.dart';
-import '../widgets/input_text.dart';
+import '../../design_system/widgets/buttons/button_with_icon_full_size.dart';
+import '../../design_system/widgets/center_loading.dart';
+import 'new_post_view_model.dart';
+import 'widgets/header_input_text.dart';
+import 'widgets/input_text.dart';
 
 class NewPostPage extends StatelessWidget {
   const NewPostPage({
