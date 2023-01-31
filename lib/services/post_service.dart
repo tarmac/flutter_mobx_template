@@ -1,6 +1,6 @@
 import '../helpers/dependencies/service_locator.dart';
 import '../models/post.dart';
-import 'api_client/api_client.dart';
+import 'api_client/base_api_client.dart';
 
 abstract class PostService {
   Future<Post> add({required String text, required String creationDate});
@@ -15,7 +15,7 @@ abstract class PostService {
 class PostServiceImpl implements PostService {
   static const accountPath = '/Account';
 
-  final ApiClient _apiClient = serviceLocator<ApiClient>();
+  final BaseApiClient _apiClient = serviceLocator<BaseApiClient>();
 
   @override
   Future<Post> add({required String text, required String creationDate}) async {

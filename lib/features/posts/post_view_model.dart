@@ -1,4 +1,3 @@
-
 import 'package:mobx/mobx.dart';
 
 import '../../helpers/dependencies/repository_locator.dart';
