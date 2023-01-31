@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../modules/posts/view_model/post_view_model.dart';
-import '../modules/posts/views/post_view.dart';
+import '../features/posts/post_view.dart';
+import '../features/posts/post_view_model.dart';
 import '../repository/post_repository.dart';
 import 'route_names.dart';
 

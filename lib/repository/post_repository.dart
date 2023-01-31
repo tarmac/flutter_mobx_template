@@ -35,8 +35,7 @@ class PostRepository {
 
   Future<Post> edit(Post post) async {
     try {
-      final result =
-          await _dio.put('/posts/${post.id}', data: post.toJson());
+      final result = await _dio.put('/posts/${post.id}', data: post.toJson());
       return Post.fromJson(result.data ?? <String, dynamic>{});
     } catch (e, stackTrace) {
       return Future<Post>.error(e, stackTrace);
@@ -52,9 +51,7 @@ class PostRepository {
           '_order': 'desc',
         },
       );
-      return List<Map<String, dynamic>>.from(result.data ?? <dynamic>[])
-          .map(Post.fromJson)
-          .toList();
+      return List<Map<String, dynamic>>.from(result.data ?? <dynamic>[]).map(Post.fromJson).toList();
     } catch (e, stackTrace) {
       return Future<List<Post>>.error(e, stackTrace);
     }

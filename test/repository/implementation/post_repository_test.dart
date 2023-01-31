@@ -15,7 +15,7 @@ void main() {
   late PostRepository repository;
 
   setUp(() {
-    dio = Dio(); 
+    dio = Dio();
     dioAdapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
     dio.httpClientAdapter = dioAdapter;
     repository = PostRepository(dio);
@@ -25,8 +25,7 @@ void main() {
     final payload = fixture('post_items.json') as List<dynamic>;
     dioAdapter.onGet(
       '/posts',
-      (request) =>
-          request.reply(HttpStatus.ok, payload),
+      (request) => request.reply(HttpStatus.ok, payload),
       queryParameters: <String, dynamic>{
         '_sort': 'id',
         '_order': 'desc',
@@ -53,8 +52,7 @@ void main() {
       data: data,
     );
 
-    final result =
-        await repository.add(text: text, creationDate: creationDate);
+    final result = await repository.add(text: text, creationDate: creationDate);
     expect(result, isA<Post>());
     expect(result.text, text);
     expect(result.creationDate, creationDate);
@@ -75,8 +73,7 @@ void main() {
 
     dioAdapter.onPut(
       '/posts/$id',
-      (request) =>
-          request.reply(HttpStatus.ok, post.toJson()),
+      (request) => request.reply(HttpStatus.ok, post.toJson()),
       data: post.toJson(),
     );
 
@@ -91,8 +88,7 @@ void main() {
     const id = 1;
     dioAdapter.onDelete(
       '/posts/$id',
-      (request) =>
-          request.reply(HttpStatus.ok, <String, dynamic>{}),
+      (request) => request.reply(HttpStatus.ok, <String, dynamic>{}),
     );
 
     final result = await repository.delete(1);

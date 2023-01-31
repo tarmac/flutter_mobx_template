@@ -35,8 +35,7 @@ Future<dynamic> showAdaptiveDialog({
     }
   } on PlatformException catch (e, stackTrace) {
     // isWeb
-    log(e.toString(),
-        name: 'showAdaptiveDialog.PlatformException', stackTrace: stackTrace);
+    log(e.toString(), name: 'showAdaptiveDialog.PlatformException', stackTrace: stackTrace);
   } catch (e, stackTrace) {
     log(e.toString(), name: 'showAdaptiveDialog', stackTrace: stackTrace);
   }

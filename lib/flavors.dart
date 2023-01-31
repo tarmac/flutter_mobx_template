@@ -22,8 +22,8 @@ extension FlavorExtension on Flavor {
     }
   }
 
-    String get appTitle {
-        switch (this) {
+  String get appTitle {
+    switch (this) {
       case Flavor.QA:
         return 'SecretWall QA';
       case Flavor.PROD:
