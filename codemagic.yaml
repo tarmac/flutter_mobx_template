@@ -25,10 +25,7 @@ workflows:
           source: true
     scripts:
       - flutter packages pub get
-      - flutter format --set-exit-if-changed -n . -l 120
-      - flutter pub run build_runner build --delete-conflicting-outputs
-      - flutter analyze
-      - flutter test
+      - make ci-tests genCode=true
       - flutter build apk --debug --flavor dev -t lib/main_dev.dart
     artifacts:
       - flutter_drive.log

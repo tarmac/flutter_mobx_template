@@ -11,10 +11,17 @@ gen-flavors:
 # Generate code
 gen-code:
 	flutter pub run build_runner build --delete-conflicting-outputs
+
+# Generate code and format files
+gen-code-and-format:
+	make gen-code
 	flutter format . -l 120
 
 # CI Tests
 ci-tests:
 	flutter format --set-exit-if-changed -n . -l 120
+	@if [ "$(genCode)" = "true" ]; then make gen-code; fi
 	flutter analyze
 	flutter test -r expanded
+
+
