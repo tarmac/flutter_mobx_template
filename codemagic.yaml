@@ -24,7 +24,7 @@ workflows:
           include: true
           source: true
     scripts:
-      - make remote-ci-pipe
+      - make remote-ci-pipeline-checks
     artifacts:
       - flutter_drive.log
     publishing:

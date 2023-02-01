@@ -1,5 +1,4 @@
 SHELL := /bin/bash
-.PHONY: ci-tests
 
 # Generate flavorizr native configurations.
 # This will override app.dart, flavors.dart and all main_X.dart.
