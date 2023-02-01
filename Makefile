@@ -25,7 +25,7 @@ ci-tests:
 	flutter test -r expanded
 
 # Complete remote CI pipeline
-remote-ci-pipe:
+remote-ci-pipeline-checks:
 	flutter packages pub get
 	make ci-tests genCode=true
 	flutter build apk --debug --flavor dev -t lib/main_dev.dart
