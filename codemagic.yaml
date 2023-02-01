@@ -24,9 +24,7 @@ workflows:
           include: true
           source: true
     scripts:
-      - flutter packages pub get
-      - make ci-tests genCode=true
-      - flutter build apk --debug --flavor dev -t lib/main_dev.dart
+      - make remote-ci-pipe
     artifacts:
       - flutter_drive.log
     publishing:
