@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_mobx_template/models/post.dart';
 import 'package:flutter_mobx_template/services/api_client/api_client.dart';
+import 'package:flutter_mobx_template/services/api_client/base_api_client.dart';
 import 'package:flutter_mobx_template/services/post_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
@@ -22,7 +23,7 @@ void main() {
     const postsPath = '/posts';
 
     setUpAll(() {
-      serviceLocator.registerSingleton<ApiClient>(mockApiClient);
+      serviceLocator.registerSingleton<BaseApiClient>(mockApiClient);
     });
 
     tearDown(() {
