@@ -14,11 +14,11 @@ gen-code:
 # Generate code and format files
 gen-code-and-format:
 	make gen-code
-	flutter format . -l 120
+	dart format . -l 120
 
 # CI Tests
 ci-tests:
-	flutter format --set-exit-if-changed -n . -l 120
+	dart format --set-exit-if-changed . -l 120
 	@if [ "$(genCode)" = "true" ]; then make gen-code; fi
 	flutter analyze
 	flutter test -r expanded
