@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../design_system/widgets/refresh_list_adaptive.dart';
 import '../../flavors.dart';
 import '../../models/post.dart';
+import '../base_view_model_container.dart';
 import '../new_posts/new_post_view.dart';
 import 'post_view_model.dart';
 import 'widgets/post_card_item.dart';
@@ -35,22 +36,25 @@ class _PostViewState extends State<PostView> {
           )
         ],
       ),
-      body: Observer(
-        builder: (_) {
-          return RefreshListAdaptive(
-            onRefresh: _viewModel.loadPosts,
-            itemBuilder: (context, i) {
-              final post = _viewModel.postsList[i];
-              return PostCardItem(
-                key: Key(post.id.toString()),
-                id: post.id.toString(),
-                text: post.text,
-                createdAt: DateFormat.yMd().add_Hms().format(post.createdAtDatetime),
-              );
-            },
-            itemCount: _viewModel.postsList.length,
-          );
-        },
+      body: BaseViewModelContainer(
+        viewModel: _viewModel,
+        child: Observer(
+          builder: (_) {
+            return RefreshListAdaptive(
+              onRefresh: _viewModel.loadPosts,
+              itemBuilder: (context, i) {
+                final post = _viewModel.postsList[i];
+                return PostCardItem(
+                  key: Key(post.id.toString()),
+                  id: post.id.toString(),
+                  text: post.text,
+                  createdAt: DateFormat.yMd().add_Hms().format(post.createdAtDatetime),
+                );
+              },
+              itemCount: _viewModel.postsList.length,
+            );
+          },
+        ),
       ),
     );
   }
