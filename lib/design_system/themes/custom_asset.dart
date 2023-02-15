@@ -1,5 +1,5 @@
 enum CustomAsset {
-  loadingWoundCoAnimation('assets/lotties/wc_loading_animation.json');
+  loadingAnimation('assets/lotties/loading.json');
 
   const CustomAsset(this.path);
 

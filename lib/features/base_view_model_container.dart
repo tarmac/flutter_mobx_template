@@ -42,7 +42,7 @@ class _BaseViewModelContainerState extends State<BaseViewModelContainer> {
         ),
         alignment: Alignment.center,
         child: Center(
-          child: Lottie.asset(CustomAsset.loadingWoundCoAnimation.path),
+          child: Lottie.asset(CustomAsset.loadingAnimation.path),
         ),
       );
 
