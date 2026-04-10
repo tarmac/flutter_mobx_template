@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PostCardItem extends StatelessWidget {
-  const PostCardItem({
-    super.key,
-    required this.id,
-    required this.text,
-    required this.createdAt,
-  });
+  const PostCardItem({super.key, required this.id, required this.text, required this.createdAt});
 
   final String id;
   final String text;
@@ -17,11 +12,7 @@ class PostCardItem extends StatelessWidget {
     return Card(
       elevation: 3,
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-      child: ListTile(
-        key: Key(id),
-        title: Text(text),
-        subtitle: Text(createdAt),
-      ),
+      child: ListTile(key: Key(id), title: Text(text), subtitle: Text(createdAt)),
     );
   }
 }

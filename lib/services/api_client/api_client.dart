@@ -22,9 +22,7 @@ class ApiClient implements BaseApiClient {
   static Dio createDio(BaseOptions opts) {
     final dio = Dio(opts);
     if (kDebugMode) {
-      dio.interceptors.add(
-        PrettyDioLogger(requestHeader: true, requestBody: true, responseHeader: true),
-      );
+      dio.interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true, responseHeader: true));
     }
 
     dio.interceptors.add(ErrorInterceptor());

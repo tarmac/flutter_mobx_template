@@ -10,9 +10,7 @@ import 'package:mockito/mockito.dart';
 
 import 'post_view_model_test.mocks.dart';
 
-@GenerateMocks([
-  PostRepository,
-])
+@GenerateMocks([PostRepository])
 void main() {
   group('PostViewModel', () {
     final mockPostRepository = MockPostRepository();

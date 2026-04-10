@@ -9,9 +9,7 @@ import 'widgets/header_input_text.dart';
 import 'widgets/input_text.dart';
 
 class NewPostPage extends StatefulWidget {
-  const NewPostPage({
-    super.key,
-  });
+  const NewPostPage({super.key});
 
   @override
   State<NewPostPage> createState() => _NewPostPageState();
@@ -31,10 +29,7 @@ class _NewPostPageState extends State<NewPostPage> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Theme.of(context).secondaryHeaderColor,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(5),
-          topRight: Radius.circular(5),
-        ),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
       ),
       child: SingleChildScrollView(
         child: Form(
@@ -44,15 +39,8 @@ class _NewPostPageState extends State<NewPostPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const HeaderInputText(text: 'New Post'),
-              InputText(
-                textEditingController: textController,
-                validator: validateTextPost,
-              ),
-              ButtonWithIconFullSize(
-                onPressed: onSaveClicked,
-                text: 'save',
-                icon: const Icon(Icons.add),
-              ),
+              InputText(textEditingController: textController, validator: validateTextPost),
+              ButtonWithIconFullSize(onPressed: onSaveClicked, text: 'save', icon: const Icon(Icons.add)),
             ],
           ),
         ),
@@ -74,14 +62,12 @@ class _NewPostPageState extends State<NewPostPage> {
       }
       final navigator = Navigator.of(context);
 
-      final post = await _viewModel.addNewPost(
-          textController.text, DateTime.now().toString());
+      final post = await _viewModel.addNewPost(textController.text, DateTime.now().toString());
       textController.clear(); // empty TextEditingController
       navigator.pop(post);
     } catch (e, _) {
       if (!mounted) return;
-      await showAdaptiveDialog(
-          context: context, title: 'Error', content: e.toString());
+      await showAdaptiveDialog(context: context, title: 'Error', content: e.toString());
     }
   }
 }

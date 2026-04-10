@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ButtonWithIconFullSize extends StatelessWidget {
-  const ButtonWithIconFullSize({
-    super.key,
-    required this.onPressed,
-    required this.text,
-    required this.icon,
-  });
+  const ButtonWithIconFullSize({super.key, required this.onPressed, required this.text, required this.icon});
 
   final void Function() onPressed;
   final String text;
@@ -20,10 +15,7 @@ class ButtonWithIconFullSize extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: onPressed,
         icon: icon,
-        label: Text(
-          text,
-          style: const TextStyle(fontSize: 18),
-        ),
+        label: Text(text, style: const TextStyle(fontSize: 18)),
       ),
     );
   }
