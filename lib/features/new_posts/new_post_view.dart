@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide showAdaptiveDialog;
 
 import '../../design_system/widgets/buttons/button_with_icon_full_size.dart';
 import '../../helpers/show_adaptive_dialog.dart';
@@ -61,20 +61,27 @@ class _NewPostPageState extends State<NewPostPage> {
   }
 
   String? validateTextPost(String? value) {
-    if (value == null || value.isEmpty) return 'Please insert a message to your new post';
+    if (value == null || value.isEmpty) {
+      return 'Please insert a message to your new post';
+    }
     return null;
   }
 
   Future<void> onSaveClicked() async {
     try {
-      if (!formKey.currentState!.validate()) throw const FormatException('The Form is invalid');
+      if (!formKey.currentState!.validate()) {
+        throw const FormatException('The Form is invalid');
+      }
       final navigator = Navigator.of(context);
 
-      final post = await _viewModel.addNewPost(textController.text, DateTime.now().toString());
+      final post = await _viewModel.addNewPost(
+          textController.text, DateTime.now().toString());
       textController.clear(); // empty TextEditingController
       navigator.pop(post);
     } catch (e, _) {
-      await showAdaptiveDialog(context: context, title: 'Error', content: e.toString());
+      if (!mounted) return;
+      await showAdaptiveDialog(
+          context: context, title: 'Error', content: e.toString());
     }
   }
 }

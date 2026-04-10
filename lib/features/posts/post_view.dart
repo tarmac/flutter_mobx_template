@@ -12,9 +12,7 @@ import 'post_view_model.dart';
 import 'widgets/post_card_item.dart';
 
 class PostView extends StatefulWidget {
-  const PostView({
-    super.key,
-  });
+  const PostView({super.key});
 
   @override
   State<PostView> createState() => _PostViewState();
@@ -22,6 +20,12 @@ class PostView extends StatefulWidget {
 
 class _PostViewState extends State<PostView> {
   final PostViewModel _viewModel = PostViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel.loadPosts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,7 @@ class _PostViewState extends State<PostView> {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () => openNewPostBottomSheet(context),
-          )
+          ),
         ],
       ),
       body: Observer(
@@ -45,7 +49,9 @@ class _PostViewState extends State<PostView> {
                 key: Key(post.id.toString()),
                 id: post.id.toString(),
                 text: post.text,
-                createdAt: DateFormat.yMd().add_Hms().format(post.createdAtDatetime),
+                createdAt: DateFormat.yMd().add_Hms().format(
+                  post.createdAtDatetime,
+                ),
               );
             },
             itemCount: _viewModel.postsList.length,

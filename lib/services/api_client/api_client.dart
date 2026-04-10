@@ -10,8 +10,8 @@ import 'interceptors/error_interceptor.dart';
 class ApiClient implements BaseApiClient {
   static BaseOptions opts = BaseOptions(
     baseUrl: appFlavor.baseUrl,
-    connectTimeout: appFlavor.connectTimeout,
-    receiveTimeout: 20000,
+    connectTimeout: Duration(milliseconds: appFlavor.connectTimeout),
+    receiveTimeout: const Duration(milliseconds: 20000),
   );
 
   final Dio _dio = createDio(opts);
