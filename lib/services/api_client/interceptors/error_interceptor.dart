@@ -10,82 +10,94 @@ class ErrorInterceptor extends Interceptor {
   ErrorInterceptor();
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
+  void onResponse(Response<dynamic> response, ResponseInterceptorHandler handler) {
     if (_isResponseWithError(response)) {
-      final dioError = DioError(
-        requestOptions: response.requestOptions,
-        response: response,
-        type: DioErrorType.response,
-        error: _getErrorMessage(response),
+      handler.reject(
+        DioException.badResponse(
+          statusCode: response.statusCode ?? HttpStatus.internalServerError,
+          requestOptions: response.requestOptions,
+          response: response,
+        ).copyWith(error: _getErrorMessage(response)),
       );
-      handler.reject(dioError, true);
+      return;
     }
 
-    super.onResponse(response, handler);
+    handler.next(response);
   }
 
-  bool _isResponseWithError(Response response) {
-    return response.data != null &&
-        response.data is Map &&
-        response.data['header'] != null &&
-        response.data['header']['status'] != null &&
-        response.data['header']['status'] is String &&
-        'Success'.toLowerCase() != response.data['header']['status'].toString().toLowerCase();
+  bool _isResponseWithError(Response<dynamic> response) {
+    final data = response.data;
+    return data != null &&
+        data is Map &&
+        data['header'] != null &&
+        data['header']['status'] != null &&
+        data['header']['status'] is String &&
+        'Success'.toLowerCase() != data['header']['status'].toString().toLowerCase();
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
-    switch (err.type) {
-      case DioErrorType.cancel:
-        err.error = DioErrorMessage(message: 'Request to API server was cancelled');
-        break;
-      case DioErrorType.connectTimeout:
-        err.error = DioErrorMessage(message: 'Connection to API server timed out');
-        break;
-      case DioErrorType.other:
-        err.error = DioErrorMessage(message: 'Connection to API server failed due to internet connection');
-        break;
-      case DioErrorType.receiveTimeout:
-        err.error = DioErrorMessage(message: 'Receive timeout in connection with API server');
-        break;
-      case DioErrorType.sendTimeout:
-        err.error = DioErrorMessage(message: 'Send timeout in connection with API server');
-        break;
-      case DioErrorType.response:
-        final response = err.response;
-        if (response == null) {
-          err.error = DioErrorMessage(message: 'Invalid response');
-          break;
-        }
-
-        if (response.statusCode == HttpStatus.unauthorized) {
-          err.error = DioErrorMessage(message: 'Unauthorized');
-        } else if (response.statusCode == HttpStatus.forbidden) {
-          err.error = DioErrorMessage(message: 'Forbidden');
-        } else if (response.statusCode == HttpStatus.notFound) {
-          err.error = DioErrorMessage(message: '${response.statusCode} Page not found.');
-        } else if (response.statusCode == HttpStatus.internalServerError) {
-          err.error = DioErrorMessage(message: '${response.statusCode} Internal server error.');
-        } else if (response.data is String) {
-          err.error = DioErrorMessage(message: '${response.statusCode}: ${response.data}');
-        } else if (_isResponseWithError(response) || response.data?['message'] is String) {
-          err.error = _getErrorMessage(response);
-        } else {
-          err.error = DioErrorMessage(message: 'Received invalid status code: ${response.statusCode}');
-        }
-
-        break;
-    }
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    final enrichedError = switch (err.type) {
+      DioExceptionType.cancel => _withErrorMessage(
+        err,
+        DioErrorMessage(message: 'Request to API server was cancelled'),
+      ),
+      DioExceptionType.connectionTimeout => _withErrorMessage(
+        err,
+        DioErrorMessage(message: 'Connection to API server timed out'),
+      ),
+      DioExceptionType.connectionError => _withErrorMessage(
+        err,
+        DioErrorMessage(message: 'Connection to API server failed due to internet connection'),
+      ),
+      DioExceptionType.receiveTimeout => _withErrorMessage(
+        err,
+        DioErrorMessage(message: 'Receive timeout in connection with API server'),
+      ),
+      DioExceptionType.sendTimeout => _withErrorMessage(
+        err,
+        DioErrorMessage(message: 'Send timeout in connection with API server'),
+      ),
+      DioExceptionType.badResponse => _handleBadResponse(err),
+      DioExceptionType.badCertificate || DioExceptionType.unknown => err,
+    };
 
     log(
-      'Dio Error: ${err.error} Message: ${err.message} Response: ${jsonEncode(err.response?.data)}',
-      stackTrace: err.stackTrace,
+      'Dio Error: ${enrichedError.error} Message: ${enrichedError.message} Response: ${jsonEncode(enrichedError.response?.data)}',
+      stackTrace: enrichedError.stackTrace,
     );
 
-    super.onError(err, handler);
+    handler.next(enrichedError);
   }
 
-  DioErrorMessage? _getErrorMessage(Response response) {
+  DioException _handleBadResponse(DioException err) {
+    final response = err.response;
+    if (response == null) {
+      return _withErrorMessage(err, DioErrorMessage(message: 'Invalid response'));
+    }
+
+    if (response.statusCode == HttpStatus.unauthorized) {
+      return _withErrorMessage(err, DioErrorMessage(message: 'Unauthorized'));
+    } else if (response.statusCode == HttpStatus.forbidden) {
+      return _withErrorMessage(err, DioErrorMessage(message: 'Forbidden'));
+    } else if (response.statusCode == HttpStatus.notFound) {
+      return _withErrorMessage(err, DioErrorMessage(message: '${response.statusCode} Page not found.'));
+    } else if (response.statusCode == HttpStatus.internalServerError) {
+      return _withErrorMessage(err, DioErrorMessage(message: '${response.statusCode} Internal server error.'));
+    } else if (response.data is String) {
+      return _withErrorMessage(err, DioErrorMessage(message: '${response.statusCode}: ${response.data}'));
+    } else if (_isResponseWithError(response) || response.data?['message'] is String) {
+      return _withErrorMessage(err, _getErrorMessage(response));
+    }
+
+    return _withErrorMessage(err, DioErrorMessage(message: 'Received invalid status code: ${response.statusCode}'));
+  }
+
+  DioException _withErrorMessage(DioException err, DioErrorMessage? errorMessage) {
+    return err.copyWith(error: errorMessage);
+  }
+
+  DioErrorMessage? _getErrorMessage(Response<dynamic> response) {
     if (response.data == null || response.data['header'] == null) {
       return DioErrorMessage(message: null);
     } else if (response.data['header']['displayMessage'] != null) {

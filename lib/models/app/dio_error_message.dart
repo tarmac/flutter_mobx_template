@@ -4,10 +4,7 @@ part 'dio_error_message.g.dart';
 
 @JsonSerializable()
 class DioErrorMessage {
-  DioErrorMessage({
-    this.showMessage = false,
-    required this.message,
-  });
+  DioErrorMessage({this.showMessage = false, required this.message});
 
   final bool showMessage;
   final String? message;

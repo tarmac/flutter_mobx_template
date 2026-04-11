@@ -4,6 +4,48 @@ This project serves as a template / example of an MVVM / mobx based architecture
 For that purpose we built an app called SecretWall which allows for anonymous posting of messages in a unique shared public "wall".
 Since we don't have a backend with a REST API to go with it we faked one using [json-server](https://www.npmjs.com/package/json-server)
 
+This project uses FVM to pin down a flutter version. Let's install that first:
+
+```bash
+brew install fvm
+```
+
+Before running the app start the fake server with
+
+```bash
+npm install -g json-server
+npx json-server --watch db.json --host 0.0.0.0 --port 3000
+```
+
+You will also need to update the IP used by the mobile app to your current dev machine IP, you should do so in `lib/flavors.dart`
+
+```dart
+  String get baseUrl {
+    switch (this) {
+      case Flavor.QA:
+      case Flavor.PROD:
+      case Flavor.DEV:
+      default:
+        return 'http://192.168.1.31:3000'; // <-- change this to your local IP address
+  }
+```
+
+
+Generate necessary dart code by running:
+
+```bash
+make gen-code
+```
+
+After that you can run any of the app's flavors from your IDE from the `lib/main_dev.dart`, `lib/main_qa.dart` or `lib/main_prod.dart`.
+
+From command line with:
+
+```bash
+fvm flutter run lib/main_dev.dart
+```
+
+
 The main use cases for the app are:
 1) open the app and see a list (newest first) of all the posts
 2) post a new anonymous entry to be displayed for everyone 

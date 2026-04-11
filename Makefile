@@ -1,32 +1,39 @@
 SHELL := /bin/bash
 
+ifeq ($(shell command -v fvm >/dev/null 2>&1; echo $$?),0)
+FLUTTER := fvm flutter
+DART := fvm dart
+else
+FLUTTER := flutter
+DART := dart
+endif
+
 # Generate flavorizr native configurations.
 # This will override app.dart, flavors.dart and all main_X.dart.
 # Only run if you know what you are doing.
 # After running, the cited files need to be reset to their previous state.
 gen-flavors:
-	flutter pub run flutter_flavorizr
+	$(FLUTTER) pub run flutter_flavorizr
 
 # Generate code
 gen-code:
-	flutter pub run build_runner build --delete-conflicting-outputs
+	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
 
 # Generate code and format files
 gen-code-and-format:
-	make gen-code
-	dart format . -l 120
+	$(MAKE) gen-code
+	$(DART) format . -l 120
 
 # CI Tests
 ci-tests:
-	dart format --set-exit-if-changed . -l 120
-	@if [ "$(genCode)" = "true" ]; then make gen-code; fi
-	flutter analyze
-	flutter test -r expanded
+	$(DART) format --set-exit-if-changed . -l 120
+	@if [ "$(genCode)" = "true" ]; then $(MAKE) gen-code; fi
+	$(FLUTTER) analyze
+	$(FLUTTER) test -r expanded
 
 # Complete remote CI pipeline
 remote-ci-pipeline-checks:
-	flutter packages pub get
-	make ci-tests genCode=true
-	flutter build apk --debug --flavor dev -t lib/main_dev.dart
-
+	$(FLUTTER) packages pub get
+	$(MAKE) ci-tests genCode=true
+	$(FLUTTER) build apk --debug --flavor dev -t lib/main_dev.dart
 

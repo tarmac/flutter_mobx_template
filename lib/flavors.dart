@@ -9,8 +9,7 @@ extension FlavorExtension on Flavor {
       case Flavor.QA:
       case Flavor.PROD:
       case Flavor.DEV:
-      default:
-        return 'http://192.168.2.110:3000';
+        return 'http://192.168.1.61:3000'; // <-- change this to your local IP address
     }
   }
 
@@ -21,16 +20,16 @@ extension FlavorExtension on Flavor {
       case Flavor.DEV:
         return 'SecretWall DEV';
       case Flavor.PROD:
-      default:
         return 'SecretWall';
     }
   }
 
   int get connectTimeout {
-    switch (appFlavor) {
+    switch (this) {
       case Flavor.DEV:
         return 20000;
-      default:
+      case Flavor.QA:
+      case Flavor.PROD:
         return 5000;
     }
   }

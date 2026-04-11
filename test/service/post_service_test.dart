@@ -12,9 +12,7 @@ import 'package:mockito/mockito.dart';
 import '../fixtures/fixtures.dart';
 import 'post_service_test.mocks.dart';
 
-@GenerateMocks([
-  ApiClient,
-])
+@GenerateMocks([ApiClient])
 void main() {
   group('PostService', () {
     final mockApiClient = MockApiClient();
@@ -39,7 +37,11 @@ void main() {
 
       Future<Response> getPosts() => mockApiClient.get(postsPath, queryParameters: {'_sort': 'id', '_order': 'desc'});
       when(getPosts()).thenAnswer(
-        (_) async => Response(statusCode: 200, requestOptions: RequestOptions(path: postsPath), data: payload),
+        (_) async => Response(
+          statusCode: 200,
+          requestOptions: RequestOptions(path: postsPath),
+          data: payload,
+        ),
       );
 
       final result = await PostServiceImpl().getAll();
@@ -61,7 +63,11 @@ void main() {
 
       Future<Response> postPost() => mockApiClient.post(postsPath, data: reqData);
       when(postPost()).thenAnswer(
-        (_) async => Response(statusCode: 200, requestOptions: RequestOptions(path: postsPath), data: respData),
+        (_) async => Response(
+          statusCode: 200,
+          requestOptions: RequestOptions(path: postsPath),
+          data: respData,
+        ),
       );
 
       final result = await PostServiceImpl().add(text: text, creationDate: creationDate);
@@ -85,7 +91,11 @@ void main() {
       final urlPath = '$postsPath/${post.id}';
       Future<Response> putPost() => mockApiClient.put(urlPath, data: post.toJson());
       when(putPost()).thenAnswer(
-        (_) async => Response(statusCode: 200, requestOptions: RequestOptions(path: urlPath), data: post.toJson()),
+        (_) async => Response(
+          statusCode: 200,
+          requestOptions: RequestOptions(path: urlPath),
+          data: post.toJson(),
+        ),
       );
 
       final result = await PostServiceImpl().edit(post);
@@ -104,9 +114,9 @@ void main() {
 
       const urlPath = '/posts/$id';
       Future<Response> deletePost() => mockApiClient.delete(urlPath);
-      when(deletePost()).thenAnswer(
-        (_) async => Response(statusCode: 200, requestOptions: RequestOptions(path: urlPath)),
-      );
+      when(
+        deletePost(),
+      ).thenAnswer((_) async => Response(statusCode: 200, requestOptions: RequestOptions(path: urlPath)));
 
       expect(() => PostServiceImpl().delete(1), returnsNormally);
       verify(deletePost());

@@ -10,8 +10,8 @@ import 'interceptors/error_interceptor.dart';
 class ApiClient implements BaseApiClient {
   static BaseOptions opts = BaseOptions(
     baseUrl: appFlavor.baseUrl,
-    connectTimeout: appFlavor.connectTimeout,
-    receiveTimeout: 20000,
+    connectTimeout: Duration(milliseconds: appFlavor.connectTimeout),
+    receiveTimeout: const Duration(milliseconds: 20000),
   );
 
   final Dio _dio = createDio(opts);
@@ -22,9 +22,7 @@ class ApiClient implements BaseApiClient {
   static Dio createDio(BaseOptions opts) {
     final dio = Dio(opts);
     if (kDebugMode) {
-      dio.interceptors.add(
-        PrettyDioLogger(requestHeader: true, requestBody: true, responseHeader: true),
-      );
+      dio.interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true, responseHeader: true));
     }
 
     dio.interceptors.add(ErrorInterceptor());
