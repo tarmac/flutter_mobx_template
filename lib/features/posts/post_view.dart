@@ -32,12 +32,7 @@ class _PostViewState extends State<PostView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(appFlavor.appTitle),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => openNewPostBottomSheet(context),
-          ),
-        ],
+        actions: <Widget>[IconButton(icon: const Icon(Icons.add), onPressed: () => openNewPostBottomSheet(context))],
       ),
       body: Observer(
         builder: (_) {
@@ -49,9 +44,7 @@ class _PostViewState extends State<PostView> {
                 key: Key(post.id.toString()),
                 id: post.id.toString(),
                 text: post.text,
-                createdAt: DateFormat.yMd().add_Hms().format(
-                  post.createdAtDatetime,
-                ),
+                createdAt: DateFormat.yMd().add_Hms().format(post.createdAtDatetime),
               );
             },
             itemCount: _viewModel.postsList.length,
@@ -68,10 +61,7 @@ class _PostViewState extends State<PostView> {
         builder: (context) => const NewPostPage(),
         backgroundColor: Colors.black54,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(5),
-            topRight: Radius.circular(5),
-          ),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
         ),
       );
       if (post != null) await _viewModel.loadPosts();
