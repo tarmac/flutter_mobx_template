@@ -12,9 +12,7 @@ import 'post_view_model.dart';
 import 'widgets/post_card_item.dart';
 
 class PostView extends StatefulWidget {
-  const PostView({
-    super.key,
-  });
+  const PostView({super.key});
 
   @override
   State<PostView> createState() => _PostViewState();
@@ -24,16 +22,17 @@ class _PostViewState extends State<PostView> {
   final PostViewModel _viewModel = PostViewModel();
 
   @override
+  void initState() {
+    super.initState();
+    _viewModel.init();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(appFlavor.appTitle),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => openNewPostBottomSheet(context),
-          )
-        ],
+        actions: <Widget>[IconButton(icon: const Icon(Icons.add), onPressed: () => openNewPostBottomSheet(context))],
       ),
       body: Observer(
         builder: (_) {
@@ -62,10 +61,7 @@ class _PostViewState extends State<PostView> {
         builder: (context) => const NewPostPage(),
         backgroundColor: Colors.black54,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(5),
-            topRight: Radius.circular(5),
-          ),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
         ),
       );
       if (post != null) await _viewModel.loadPosts();

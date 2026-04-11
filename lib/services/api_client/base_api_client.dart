@@ -7,12 +7,7 @@ abstract class BaseApiClient {
 
   Future<Response<T>> get<T>(String path, {Map<String, dynamic>? queryParameters, bool noCache = false});
 
-  Future<Response> post(
-    String path, {
-    dynamic data,
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-  });
+  Future<Response> post(String path, {dynamic data, Map<String, dynamic>? queryParameters, Options? options});
 
   Future<Response> put(String path, {dynamic data, Map<String, dynamic>? queryParameters});
 

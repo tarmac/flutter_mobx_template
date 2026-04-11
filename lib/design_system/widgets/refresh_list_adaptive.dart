@@ -4,12 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RefreshListAdaptive extends StatelessWidget {
-  const RefreshListAdaptive({
-    super.key,
-    required this.onRefresh,
-    required this.itemBuilder,
-    required this.itemCount,
-  });
+  const RefreshListAdaptive({super.key, required this.onRefresh, required this.itemBuilder, required this.itemCount});
 
   final Future<void> Function() onRefresh;
   final Widget Function(BuildContext, int) itemBuilder;
@@ -21,15 +16,8 @@ class RefreshListAdaptive extends StatelessWidget {
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: <Widget>[
-          CupertinoSliverRefreshControl(
-            onRefresh: onRefresh,
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              itemBuilder,
-              childCount: itemCount,
-            ),
-          ),
+          CupertinoSliverRefreshControl(onRefresh: onRefresh),
+          SliverList(delegate: SliverChildBuilderDelegate(itemBuilder, childCount: itemCount)),
         ],
       ),
     );

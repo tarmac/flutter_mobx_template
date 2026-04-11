@@ -12,6 +12,11 @@ class PostViewModel = PostViewModelBase with _$PostViewModel;
 abstract class PostViewModelBase with Store {
   final PostRepository _postRepository = repositoryLocator<PostRepository>();
 
+  @action
+  Future<void> init() async {
+    await loadPosts();
+  }
+
   @computed
   List<Post> get postsList => _postRepository.postsList;
 

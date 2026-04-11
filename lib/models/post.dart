@@ -3,11 +3,7 @@ part 'post.g.dart';
 
 @JsonSerializable()
 class Post {
-  Post({
-    required this.id,
-    required this.text,
-    required this.creationDate,
-  });
+  Post({required this.id, required this.text, required this.creationDate});
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 
