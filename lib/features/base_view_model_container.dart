@@ -31,7 +31,7 @@ class _BaseViewModelContainerState extends State<BaseViewModelContainer> {
 
   Widget get loadingScreen => Container(
     height: MediaQuery.of(context).size.height,
-    decoration: BoxDecoration(color: Colors.white30.withOpacity(0.7)),
+    decoration: BoxDecoration(color: Colors.white30.withAlpha(179)),
     alignment: Alignment.center,
     child: Center(child: CircularProgressIndicator.adaptive()),
   );
