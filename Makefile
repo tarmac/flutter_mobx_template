@@ -15,6 +15,10 @@ endif
 gen-flavors:
 	$(FLUTTER) pub run flutter_flavorizr
 
+# Generate code and watch
+format:
+	$(DART) format . -l 120
+
 # Generate code
 gen-code:
 	$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
@@ -22,7 +26,12 @@ gen-code:
 # Generate code and format files
 gen-code-and-format:
 	$(MAKE) gen-code
-	$(DART) format . -l 120
+	$(MAKE) format
+
+# Generate code and watch
+gen-code-watch:
+	$(MAKE) gen-code
+	$(MAKE) format
 
 # CI Tests
 ci-tests:

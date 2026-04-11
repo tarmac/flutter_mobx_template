@@ -6,11 +6,7 @@ class ScreenInitError extends StatelessWidget {
   final VoidCallback onTryAgain;
   final bool allowRetry;
 
-  const ScreenInitError({
-    super.key,
-    required this.allowRetry,
-    required this.onTryAgain,
-  });
+  const ScreenInitError({super.key, required this.allowRetry, required this.onTryAgain});
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +18,12 @@ class ScreenInitError extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              genericExceptionMessage,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+            Text(genericExceptionMessage, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 24),
             if (allowRetry)
-              InkWell(
-                onTap: onTryAgain,
-                child: const Text('Try again'),
-              )
+              InkWell(onTap: onTryAgain, child: const Text('Try again'))
             else
-              Text(
-                'Try again later',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
-              )
+              Text('Try again later', textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
       ),

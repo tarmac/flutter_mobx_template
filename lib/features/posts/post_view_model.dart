@@ -12,12 +12,6 @@ class PostViewModel = _PostsViewModel with _$PostViewModel;
 abstract class _PostsViewModel extends BaseViewModel with Store {
   final PostRepository _postRepository = repositoryLocator<PostRepository>();
 
-  @override
-  @action
-  Future<void> init() async {
-    await loadPosts();
-  }
-
   @computed
   List<Post> get postsList => _postRepository.postsList;
 
@@ -25,7 +19,6 @@ abstract class _PostsViewModel extends BaseViewModel with Store {
   @override
   Future<void> init() async {
     await loadPosts();
-    return super.init();
   }
 
   @action

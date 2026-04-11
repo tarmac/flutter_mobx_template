@@ -23,12 +23,6 @@ class _PostViewState extends State<PostView> {
   final PostViewModel _viewModel = PostViewModel();
 
   @override
-  void initState() {
-    super.initState();
-    _viewModel.init();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

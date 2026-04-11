@@ -10,11 +10,7 @@ class BaseViewModelContainer extends StatefulWidget {
   final BaseViewModel viewModel;
   final Widget child;
 
-  const BaseViewModelContainer({
-    super.key,
-    required this.viewModel,
-    required this.child,
-  });
+  const BaseViewModelContainer({super.key, required this.viewModel, required this.child});
 
   @override
   State<BaseViewModelContainer> createState() => _BaseViewModelContainerState();
@@ -36,15 +32,11 @@ class _BaseViewModelContainerState extends State<BaseViewModelContainer> {
   void closeKeyboard(BuildContext context) => FocusScope.of(context).unfocus();
 
   Widget get loadingScreen => Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          color: Colors.white30.withOpacity(0.7),
-        ),
-        alignment: Alignment.center,
-        child: Center(
-          child: Lottie.asset(CustomAsset.loadingAnimation.path),
-        ),
-      );
+    height: MediaQuery.of(context).size.height,
+    decoration: BoxDecoration(color: Colors.white30.withOpacity(0.7)),
+    alignment: Alignment.center,
+    child: Center(child: Lottie.asset(CustomAsset.loadingAnimation.path)),
+  );
 
   @override
   Widget build(BuildContext context) {
