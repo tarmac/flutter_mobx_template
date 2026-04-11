@@ -25,9 +25,6 @@ dependencies:
   # Data
   json_annotation: ^4.11.0
 
-  # UI:
-  lottie: ^3.3.3
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -49,10 +46,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/lotties/
 
 flavorizr:
   app:

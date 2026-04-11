@@ -14,7 +14,7 @@ Before running the app start the fake server with
 
 ```bash
 npm install -g json-server
-npx json-server --watch db.json --host 0.0.0.0 --port 3000
+npx json-server --watch db.json --host 0.0.0.0 --port 3000 -d 2000
 ```
 
 You will also need to update the IP used by the mobile app to your current dev machine IP, you should do so in `lib/flavors.dart`

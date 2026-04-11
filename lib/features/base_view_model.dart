@@ -7,7 +7,7 @@ class BaseViewModel = _BaseViewModel with _$BaseViewModel;
 
 abstract class _BaseViewModel with Store {
   @observable
-  var loading = false;
+  var loading = 0;
 
   @observable
   var firstLoading = true;
@@ -39,7 +39,20 @@ abstract class _BaseViewModel with Store {
       initRetryCounter++;
     } finally {
       firstLoading = false;
-      loading = false;
+    }
+  }
+
+  @computed
+  bool get isLoading => loading > 0;
+
+  @action
+  void increaseLoading() => loading++;
+
+  @action
+  void decreaseLoading() {
+    loading--;
+    if (loading < 0) {
+      loading = 0;
     }
   }
 

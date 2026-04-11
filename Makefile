@@ -30,8 +30,7 @@ gen-code-and-format:
 
 # Generate code and watch
 gen-code-watch:
-	$(MAKE) gen-code
-	$(MAKE) format
+	$(FLUTTER) pub run build_runner watch --delete-conflicting-outputs
 
 # CI Tests
 ci-tests:

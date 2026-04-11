@@ -22,5 +22,12 @@ abstract class _PostsViewModel extends BaseViewModel with Store {
   }
 
   @action
-  Future<void> loadPosts() => _postRepository.loadAll();
+  Future<void> loadPosts() async {
+    try {
+      increaseLoading();
+      await _postRepository.loadAll();
+    } finally {
+      decreaseLoading();
+    }
+  }
 }

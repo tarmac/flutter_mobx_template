@@ -14,7 +14,12 @@ class NewPostViewModel = _NewPostViewModel with _$NewPostViewModel;
 abstract class _NewPostViewModel extends BaseViewModel with Store {
   final PostRepository _postRepository = repositoryLocator<PostRepository>();
 
-  Future<Post> addNewPost(String text, String creationDate) {
-    return _postRepository.add(text: text, creationDate: creationDate);
+  Future<Post> addNewPost(String text, String creationDate) async {
+    try {
+      increaseLoading();
+      return await _postRepository.add(text: text, creationDate: creationDate);
+    } finally {
+      decreaseLoading();
+    }
   }
 }

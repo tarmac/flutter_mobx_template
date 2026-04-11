@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:lottie/lottie.dart';
 
-import '../design_system/themes/custom_asset.dart';
 import '../design_system/widgets/screen_init_error.dart';
 import 'base_view_model.dart';
 
@@ -35,7 +33,7 @@ class _BaseViewModelContainerState extends State<BaseViewModelContainer> {
     height: MediaQuery.of(context).size.height,
     decoration: BoxDecoration(color: Colors.white30.withOpacity(0.7)),
     alignment: Alignment.center,
-    child: Center(child: Lottie.asset(CustomAsset.loadingAnimation.path)),
+    child: Center(child: CircularProgressIndicator.adaptive()),
   );
 
   @override
@@ -50,7 +48,7 @@ class _BaseViewModelContainerState extends State<BaseViewModelContainer> {
               if (!viewModel.initFailed) widget.child,
               if (viewModel.initFailed)
                 ScreenInitError(allowRetry: viewModel.allowInitRetry, onTryAgain: viewModel.runInit),
-              if (viewModel.loading) loadingScreen,
+              if (viewModel.isLoading) loadingScreen,
             ],
           );
         },
