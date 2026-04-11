@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' hide showAdaptiveDialog;
 
 import '../../design_system/widgets/buttons/button_with_icon_full_size.dart';
 import '../../helpers/show_adaptive_dialog.dart';
+import '../base_view_model_container.dart';
 import 'new_post_view_model.dart';
 import 'widgets/header_input_text.dart';
 import 'widgets/input_text.dart';
@@ -31,17 +32,20 @@ class _NewPostPageState extends State<NewPostPage> {
         color: Theme.of(context).secondaryHeaderColor,
         borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
       ),
-      child: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const HeaderInputText(text: 'New Post'),
-              InputText(textEditingController: textController, validator: validateTextPost),
-              ButtonWithIconFullSize(onPressed: onSaveClicked, text: 'save', icon: const Icon(Icons.add)),
-            ],
+      child: BaseViewModelContainer(
+        viewModel: _viewModel,
+        child: SingleChildScrollView(
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const HeaderInputText(text: 'New Post'),
+                InputText(textEditingController: textController, validator: validateTextPost),
+                ButtonWithIconFullSize(onPressed: onSaveClicked, text: 'save', icon: const Icon(Icons.add)),
+              ],
+            ),
           ),
         ),
       ),
