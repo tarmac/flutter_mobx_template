@@ -9,7 +9,7 @@ extension FlavorExtension on Flavor {
       case Flavor.QA:
       case Flavor.PROD:
       case Flavor.DEV:
-        return 'http://192.168.1.31:3000'; // <-- change this to your local IP address
+        return 'http://192.168.1.61:3000'; // <-- change this to your local IP address
     }
   }
 
